@@ -1,0 +1,27 @@
+/*
+ * SevenSegment.c
+ *
+ *  Created on: 17 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include<SevenSegment.h>
+
+void Begin_DD(SevSegDir_Dot* LED){
+	uint8_t i;
+	for (i = 0; i < 8; ++i) {
+		LED->GPIO_TDSegPortAdr[i]->MODER=1<<LED->aucSegGPIO_MODERS;
+	}
+
+	for (i = 0; i < LED->ucSegCnt; ++i) {
+		LED->GPIO_TDComPortAdr[i]->MODER=1<<LED->pucComGPIO_MODERS;
+	}
+
+
+}
+void ShowSevSeg_DD(SevSegDir_Dot* LED,char * text){
+
+}
+void End_DD(SevSegDir_Dot* LED){
+
+}
+

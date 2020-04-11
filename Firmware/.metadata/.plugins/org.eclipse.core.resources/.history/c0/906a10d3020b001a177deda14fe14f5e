@@ -1,0 +1,21 @@
+/*
+ * Thermcouples.c
+ *
+ *  Created on: 21 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include <Thermcouples.h>
+
+
+
+float GetThrmcuopT(float fTVoltage){
+	short i=SIZE_NEG_T-1;
+	if(fTVoltage<0){
+		for(i;i<SIZE_NEG_T;i++){
+			if(fpPosT[i]>fTVoltage){
+
+			}
+
+		}
+	}
+}

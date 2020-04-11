@@ -1,0 +1,62 @@
+/*
+ * SevenSegment.c
+ *
+ *  Created on: 17 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include<SevenSegment.h>
+
+
+void Init_SevSeg(){
+	uint8_t i=0;
+	//Initialize pins to output PP of Stm32
+	//which are connected to Seven Segment a,b,c,d,e,f,g,dt pins
+	GPIOB->MODER|=1<<(ucaSegPins[i]*2);
+	GPIOB->OTYPER&=~(1<<ucaSegPins[i]);
+	GPIOB->OSPEEDR&=~(3<<(ucaSegPins[i]*2));
+	GPIOB->PUPDR&=~(3<<(ucaSegPins[i]*2));
+	for (i = 1; i <= 7; ++i) {
+		GPIOA->MODER|=1<<(ucaSegPins[i]*2);
+		GPIOA->OTYPER&=~(1<<ucaSegPins[i]);
+		GPIOA->OSPEEDR&=~(3<<(ucaSegPins[i]*2));
+		GPIOA->PUPDR&=~(3<<(ucaSegPins[i]*2));
+	}
+	//Initialize pins of Stm32
+	//which are connected to Seven Segment Cathodes pins
+	for (i = 0; i <SEG_CNT; ++i) {
+		GPIOA->MODER|=1<<(ucaComPins[i]*2);
+		GPIOA->OTYPER&=~(1<<ucaComPins[i]);
+		GPIOA->OSPEEDR&=~(3<<(ucaComPins[i]*2));
+		GPIOA->PUPDR&=~(3<<(ucaComPins[i]*2));
+	}
+}
+
+void ShowDgt_SevSeg(float fDigit, uint16_t delay, uint16_t count){
+	float iPow=1;
+	int16_t cDigit;
+	while(iPow<fDigit)
+		iPow*=10;
+	uint8_t i;
+	for (i = 0; i < SEG_CNT; ++i) {
+		iPow/=10;
+		cDigit=fDigit/iPow;
+		fDigit-=cDigit*iPow;
+
+		assert(0<=cDigit&&cDigit<=9);
+
+		switch (cDigit) {
+		case 8:{
+
+			GPIOB->ODR|=(1<<ucaSegPins[0]);
+			GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+					(1<<ucaSegPins[3])|(1<<ucaSegPins[4])|
+					(1<<ucaSegPins[5])|(1<<ucaSegPins[6]);
+			break;
+		}
+		default:
+			assert(false);
+			break;
+		}
+	}
+}
+

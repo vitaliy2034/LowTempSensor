@@ -1,0 +1,29 @@
+/*
+ * SevenSegment.h
+ *
+ *  Created on: 16 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+
+#ifndef SEVENSEGMENT_H_
+
+#define SEVENSEGMENT_H_
+
+#include <stm32f0xx.h>
+#include <stm32f030x6.h>
+#include <assert.h>
+struct SevSegDir_Dot{
+	bool bIsCommonAndoe;
+	uint8_t ucSegCnt;
+	uint8_t aucSegGPIO_MODERS[8];
+	GPIO_TypeDef * GPIO_TDSegPortAdr[8];
+	uint8_t *pucComGPIO_MODERS;
+	GPIO_TypeDef ** GPIO_TDComPortAdr;
+};
+
+void Begin_DD(SevSegDir_Dot* LED);
+void ShowSevSeg_DD(SevSegDir_Dot* LED,char * text);
+void End_DD(SevSegDir_Dot* LED);
+
+
+#endif /* SEVENSEGMENT_H_ */

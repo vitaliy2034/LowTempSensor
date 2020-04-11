@@ -1,0 +1,14 @@
+/*
+ * Thermistor.c
+ *
+ *  Created on: 20 лист. 2019 р.
+ *      Author: vitlaiy2034
+ */
+
+#include <Thermistor.h>
+
+void  InitThermFast(float T,float R){
+	T1=T;
+	R1=R;
+	R2=-1;
+}

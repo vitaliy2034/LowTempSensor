@@ -1,0 +1,56 @@
+#include <TempMes.h>
+#include <SevSeg.h>
+#include <Thermcouples.h>
+
+void TIM1_BRK_UP_TRG_COM_IRQHandler(void){
+	static uint16_t data[4];
+	TIM1->CR1&=~(TIM_CR1_CEN);
+	ADC_Read(data);
+
+	ShowDgt_SevSeg(-1.2f, 10, 10000);
+	TIM1->SR&=~(TIM_SR_UIF);
+	TIM1->CR1|=(TIM_CR1_CEN);
+
+}
+
+
+void Init_Adc(){
+	RCC->AHBENR|=RCC_AHBENR_GPIOBEN;
+	GPIOB->MODER|= GPIO_MODER_MODER1|GPIO_MODER_MODER0;
+
+	RCC->APB2ENR|= RCC_APB2ENR_ADCEN;
+
+	//NVIC_EnableIRQ(ADC1_IRQn);
+	//NVIC_SetPriority(ADC1_IRQn, 0);
+	//ADC1->IER|= ADC_IER_ADRDYIE;
+	ADC->CCR|= ADC_CCR_VREFEN;
+	ADC1->CHSELR|=ADC_CHSELR_CHSEL8 |ADC_CHSELR_CHSEL8| ADC_CHSELR_CHSEL17|ADC_CHSELR_CHSEL16;
+	ADC1->SMPR|=ADC_SMPR1_SMPR_2;
+	ADC1->CFGR2|=ADC_CFGR2_CKMODE_0;
+	ADC1->CFGR1|=ADC_CFGR1_WAIT;
+
+	ADC1->ISR|=ADC_ISR_ADRDY;
+	ADC1->CR|=ADC_CR_ADEN;
+	while(!(ADC_ISR_ADRDY&ADC1->ISR));
+
+}
+void ADC_Read(uint16_t* data){
+	ADC1->CR|=ADC_CR_ADSTART;
+	for (uint8_t i = 0; i < 4; ++i) {
+		while(!(ADC1->ISR&ADC_ISR_EOC));
+		*(data+i)=ADC1->DR;
+	}
+
+
+}
+void Init_Timer(){
+	NVIC_EnableIRQ(TIM1_BRK_UP_TRG_COM_IRQn);
+	//	NVIC_SetPriority(TIM1_BRK_UP_TRG_COM_IRQn, 2);
+	RCC->APB2ENR|=RCC_APB2ENR_TIM1EN;
+	TIM1->ARR=40000;
+	TIM1->DIER|=TIM_DIER_UIE;
+	TIM1->PSC=40;
+	TIM1->CR1|=TIM_CR1_ARPE|TIM_CR1_DIR|TIM_CR1_CEN;
+
+}
+

@@ -1,0 +1,4 @@
+SevSeg.c:10:13:Init_SevSeg	16	static
+SevSeg.c:37:6:ShowSim_SevSeg	16	static
+SevSeg.c:103:6:ClearSeg_SevSeg	16	static
+SevSeg.c:111:6:ShowDgt_SevSeg	48	static

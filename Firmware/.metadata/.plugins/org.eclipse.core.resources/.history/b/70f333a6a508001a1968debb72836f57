@@ -1,0 +1,29 @@
+/*
+ * TempMes.c
+ *
+ *  Created on: 9 лист. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include<TempMes.h>
+
+float GetThermVolage(){//calib voltage 2.206
+	static float prev=0;
+	uint16_t * data = ADC_ReadOvrsam(2);
+
+	float K =(abs(data[0]-prev)/80.0f);
+	float result=(K>0.15f)?data[0]:K*(data[0])+(1.0f-K)*prev;
+	result*=40.798f;///29450.0f;
+
+
+//	float K =0.9f,B=0.3f;
+//
+//	float result=abs(data[0]-prev);
+//	if(abs(data[0]-prev)<12)
+//		result = (1.0f-K)*(data[0])+K*prev;//*40.798f);///29450.0f;
+//	else
+//		result = (1.0f-B)*(data[0])+B*prev;
+	prev =result;
+	//result -=7.235f;
+	free(data);
+	return result;
+}

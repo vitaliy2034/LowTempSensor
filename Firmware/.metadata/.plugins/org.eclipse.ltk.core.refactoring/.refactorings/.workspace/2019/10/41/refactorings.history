@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;TempSensor/STM32F030F4PX_FLASH.ld&apos;" deleteContents="false" description="Delete resource &apos;TempSensor/STM32F030F4PX_FLASH.ld&apos;" element1="/TempSensor/STM32F030F4PX_FLASH.ld" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1570777949972"/>
+</session>

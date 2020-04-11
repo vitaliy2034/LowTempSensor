@@ -1,0 +1,153 @@
+/*
+ * SevSeg.c
+ *
+ *  Created on: 20 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include<SevSeg.h>
+
+
+inline void Init_SevSeg(){
+	uint8_t i=0;
+
+	//Enable clocking of GPIO
+	RCC->AHBENR|=RCC_AHBENR_GPIOAEN|RCC_AHBENR_GPIOBEN;
+
+	//Initialize pins to output PP of Stm32
+	//which are connected to Seven Segment a,b,c,d,e,f,g,dt pins
+	GPIOB->MODER|=1<<(ucaSegPins[i]*2);
+	GPIOB->OTYPER&=~(1<<ucaSegPins[i]);
+	GPIOB->OSPEEDR&=~(3<<(ucaSegPins[i]*2));
+	GPIOB->PUPDR&=~(3<<(ucaSegPins[i]*2));
+	for (i = 0; i <= 7; ++i) {
+		GPIOA->MODER|=1<<(ucaSegPins[i]*2);
+		GPIOA->OTYPER&=~(1<<ucaSegPins[i]);
+		GPIOA->OSPEEDR&=~(3<<(ucaSegPins[i]*2));
+		GPIOA->PUPDR&=~(3<<(ucaSegPins[i]*2));
+	}
+	//Initialize pins of Stm32
+	//which are connected to Seven Segment Cathodes pins
+	for (i = 0; i <SEG_CNT; ++i) {
+		GPIOA->MODER|=1<<(ucaComPins[i]*2);
+		GPIOA->OTYPER&=~(1<<ucaComPins[i]);
+		GPIOA->OSPEEDR&=~(3<<(ucaComPins[i]*2));
+		GPIOA->PUPDR&=~(3<<(ucaComPins[i]*2));
+		GPIOA->ODR|=1<<(ucaComPins[i]);
+	}
+
+}
+
+void ShowSim_SevSeg(char cSim,uint8_t u8SegNum){
+	//assert(u8SegNum<SEG_CNT);
+	GPIOA->ODR&=~(1<<ucaComPins[u8SegNum]);
+	switch (cSim) {
+	case '.':{
+		GPIOA->ODR|=1<<ucaSegPins[7];
+		break;
+	}
+	case '0':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[3])|(1<<ucaSegPins[4])|
+				(1<<ucaSegPins[5]);
+		break;
+	}
+	case '1':{
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2]);
+		break;
+	}
+	case '2':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[3])
+									|(1<<ucaSegPins[4])|(1<<ucaSegPins[6]);
+		break;
+	}
+	case '3':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[3])|(1<<ucaSegPins[6]);
+		break;
+	}
+	case '4':{
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[5])|(1<<ucaSegPins[6]);
+		break;
+	}
+	case '5':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[2])|(1<<ucaSegPins[3])|
+				(1<<ucaSegPins[5])|(1<<ucaSegPins[6]);
+		break;
+	}
+	case '6':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[5])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[3])|(1<<ucaSegPins[4])|
+				(1<<ucaSegPins[6]);
+		break;
+	}
+	case '7':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2]);
+		break;
+	}
+	case '8':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[3])|(1<<ucaSegPins[4])|
+				(1<<ucaSegPins[5])|(1<<ucaSegPins[6]);
+		break;
+	}
+	case '9':{
+		GPIOB->ODR|=(1<<ucaSegPins[0]);
+		GPIOA->ODR|=(1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+				(1<<ucaSegPins[3])|(1<<ucaSegPins[5])
+				|(1<<ucaSegPins[6]);
+		break;
+	}
+	default:
+		//assert(false);
+		break;
+	}
+}
+
+void ClearSeg_SevSeg(uint8_t u8SegNum){
+	GPIOA->ODR|=(1<<ucaComPins[u8SegNum]);
+
+	GPIOB->ODR&=~(1<<ucaSegPins[0]);
+
+	GPIOA->ODR&=~((1<<ucaSegPins[1])|(1<<ucaSegPins[2])|
+			(1<<ucaSegPins[3])|(1<<ucaSegPins[4])|
+			(1<<ucaSegPins[5])|(1<<ucaSegPins[6])|
+			(1<<ucaSegPins[7]));
+}
+
+void ShowDgt_SevSeg(float fDigit, uint16_t delay, uint16_t count){
+	float iPow=10,fDevBuf,
+			fDigBuf=fDigit;
+	int16_t cDigit;
+
+	while(iPow<fabs(fDigit))
+		iPow*=10;
+	fDevBuf=iPow;
+	uint8_t i;
+	while(count--){
+		fDigit=fDigBuf;
+		iPow=fDevBuf;
+		for (i = 0; i < SEG_CNT; ++i) {
+			iPow/=10;
+			if(iPow==1.0f)
+				ShowSim_SevSeg('.', i);
+
+
+
+			cDigit=fDigit/iPow;
+			fDigit-=cDigit*iPow;
+			//	assert(!(0<=cDigit&&cDigit<=9));
+
+			ShowSim_SevSeg(abs(cDigit)+'0', i);
+			Sleep_ms(delay);
+			ClearSeg_SevSeg(i);
+		}
+	}
+}

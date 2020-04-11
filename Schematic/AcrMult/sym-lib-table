@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name MultComp)(type Legacy)(uri /home/vitlaiy2034/GDrive/Projects/AccurateMultimetr/v0.1beta/Schematic/AcrMult/MultComp.lib)(options "")(descr ""))
+  (lib (name AcrMult-rescue)(type Legacy)(uri ${KIPRJMOD}/AcrMult-rescue.lib)(options "")(descr ""))
+)

@@ -1,0 +1,20 @@
+/*
+ * Sleep.c
+ *
+ *  Created on: 20 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+inline void Sleep_Init(TIM_TypeDef * TIM){
+	//TIM1->ARR=40000;
+	TIM->DIER|=TIM_DIER_UIE;
+	TIM->PSC=8000;
+	TIM->CR1|=TIM_CR1_ARPE|TIM_CR1_DIR;
+
+}
+
+void Sleep_ms(uint16_t ms){
+
+	for (int i = 0; i < ms*100; ++i) {
+
+	}
+}

@@ -1,0 +1,39 @@
+/*
+ * Thermcouples.c
+ *
+ *  Created on: 21 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include <Thermcouples.h>
+
+
+
+float GetThrmcuopT(float fTVoltage){
+	if(fTVoltage>fpPosT[SIZE_POS_T-1] || fTVoltage<fpNegT[SIZE_NEG_T-1] ){
+		return -300;
+	}
+	short i;
+	if(fTVoltage<0){
+		//starts from SIZE_NEG_T-2
+		for(i=SIZE_NEG_T-2;i>=0;i--){
+			if(fpNegT[i]>fTVoltage){
+				//line interpolation Y=Y0+((Y1-Y0)*(X-X0))/(X1-X0)
+				return -i +
+							(-(fTVoltage-fpNegT[i])
+								/(fpNegT[i+1]-fpNegT[i]));//Y0=-i,X0=fpNegT[i],Y1=-(i+1),X1=fpNegT[i+1]
+			}
+		}
+	}
+	else{
+		//starts from 1
+		for(i=1;i<SIZE_POS_T;i++){
+			if(fpNegT[i]>fTVoltage)
+			{
+				//line interpolation Y=Y0+((Y1-Y0)*(X-X0))/(X1-X0)
+				return i+(-(fTVoltage-fpPosT[i])/(fpPosT[i-1]-fpPosT[i]));//Y0=i,X0=fpNegT[i],Y1=(i-1),X1=fpNegT[i-1]
+			}
+		}
+	}
+	return -400;//it is unpossible
+
+}

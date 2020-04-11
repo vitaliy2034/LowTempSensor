@@ -1,0 +1,40 @@
+/*
+ * main.h
+ *
+ *  Created on: 7 серп. 2019 р.
+ *      Author: vitlaiy2034
+ */
+
+#ifndef PROG_H_
+#define PROG_H_
+#include "../../TempSensorRev1_0/CMSIS/Inc/stm32f030x6.h"
+
+#define TEMP30_CAL *((uint16_t*) ((uint32_t) 0x1FFFF7B8))
+#define	TEMP110_CAL *((uint16_t*) ((uint32_t) 0x1FFFF7C2))
+#define EV_RES 1
+#define EV_CAL 2
+#define EV_MAX 4
+#define EV_MIN 8
+#define EV_NORM 16
+#define ST_NORM	32
+#define ST_MIN	64
+#define ST_MAX	128
+
+
+//uint8_t Stat;
+//uint16_t Adc_Temp;
+
+void read_Temp(float& data);
+
+
+void Init_Timer();
+void Init_Adc();
+void Adc_Calibrate();
+
+
+void Execute();
+//Event_Hendler
+
+
+
+#endif /* PROG_H_ */

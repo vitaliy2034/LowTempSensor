@@ -1,0 +1,4 @@
+WAdc.c:17:20:ADC_Init	8	static
+WAdc.c:37:26:ADC_ReadOvrsam	32	static
+WAdc.c:51:20:ADC_Calib	8	static
+WAdc.c:66:26:ADC_Read	16	static

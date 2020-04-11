@@ -1,0 +1,10 @@
+08:49:43 **** Incremental Build of configuration Debug for project TempSensorRev1_0 ****
+make -j2 all 
+arm-none-eabi-size   TempSensorRev1_0.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5764	     20	   1572	   7356	   1cbc	TempSensorRev1_0.elf
+Finished building: default.size.stdout
+ 
+
+08:49:44 Build Finished. 0 errors, 0 warnings. (took 1s.66ms)
+

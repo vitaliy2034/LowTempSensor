@@ -1,0 +1,18 @@
+/*
+ * TempMes.c
+ *
+ *  Created on: 9 лист. 2019 р.
+ *      Author: vitlaiy2034
+ */
+
+#include <WAdc.h>
+#include <malloc.h>
+
+
+float GetThermVolage(){
+	uint16_t * data = ADC_ReadOvrsam(2);
+	float result = (data[0]*40.798f);///29450.0f;
+	//result -=7.235f;
+	free(data);
+	return result;
+}

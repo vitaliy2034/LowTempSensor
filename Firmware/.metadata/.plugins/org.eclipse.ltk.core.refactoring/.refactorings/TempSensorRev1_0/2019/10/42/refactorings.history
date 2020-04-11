@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;TempSensorRev1_0/Inc/SmartDelay.h&apos; to &apos;Sleep.h&apos;" description="Rename resource &apos;SmartDelay.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Inc/SmartDelay.h" name="Sleep.h" stamp="1571569139031" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;TempSensorRev1_0/Inc/SevenSegment.h&apos; to &apos;SevenSegments.h&apos;" description="Rename resource &apos;SevenSegment.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Inc/SevenSegment.h" name="SevenSegments.h" stamp="1571586002259" updateReferences="true"/>
+</session>

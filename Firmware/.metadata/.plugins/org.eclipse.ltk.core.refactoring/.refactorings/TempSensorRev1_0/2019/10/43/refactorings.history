@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;TempSensorRev1_0/Src/TempMes.cpp&apos; to &apos;TempMes.c&apos;" description="Rename resource &apos;TempMes.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Src/TempMes.cpp" name="TempMes.c" stamp="1571639323743" updateReferences="true"/>
+</session>

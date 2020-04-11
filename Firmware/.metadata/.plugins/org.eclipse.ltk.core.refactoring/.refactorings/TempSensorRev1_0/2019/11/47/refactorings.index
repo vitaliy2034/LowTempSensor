@@ -1,0 +1,5 @@
+1574194514188	Move 'Sleep.h' to 'Src'
+1574194519066	Move 'WAdc.h' to 'Src'
+1574194522430	Move 'WAssert.h' to 'Src'
+1574194723024	Move 3 resources to 'Inc'
+1574253532943	Rename resource 'Thermistor.h'

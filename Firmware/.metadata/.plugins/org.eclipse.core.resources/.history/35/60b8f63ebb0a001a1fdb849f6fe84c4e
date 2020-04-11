@@ -1,0 +1,11 @@
+/*
+ * Thermcouples.c
+ *
+ *  Created on: 21 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+float T[671];
+
+float GetThrmcuopT(float voltage){
+
+}

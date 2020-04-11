@@ -1,0 +1,2 @@
+Thermistor.c:10:7:InitThermFast	16	static
+Thermistor.c:13:7:InitThermAccur	24	static

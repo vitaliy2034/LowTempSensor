@@ -1,0 +1,18 @@
+/*
+ * SevenSegment.c
+ *
+ *  Created on: 17 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include<SevenSegment.h>
+
+void Begin_DD(SevSegDir_Dot* LED){
+
+}
+void ShowSevSeg_DD(SevSegDir_Dot* LED,char * text){
+
+}
+void End_DD(SevSegDir_Dot* LED){
+
+}
+

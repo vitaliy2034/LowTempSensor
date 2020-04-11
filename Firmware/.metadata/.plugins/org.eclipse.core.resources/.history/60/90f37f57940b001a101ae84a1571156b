@@ -1,0 +1,18 @@
+/*
+ * Thermistor.h
+ *
+ *  Created on: 20 лист. 2019 р.
+ *      Author: vitlaiy2034
+ */
+
+#ifndef THERMISTOR_H_
+#define THERMISTOR_H_
+
+float calT1,calR1,T2,R2,T3,R3;
+
+void  InitThermAccur(float T1,float R1,float T2,float R2,float T3,float R3);
+void  InitThermFast(float T,float R);
+void  InitThermRude();
+void  GetTempreture(float R);
+
+#endif /* THERMISTOR_H_ */

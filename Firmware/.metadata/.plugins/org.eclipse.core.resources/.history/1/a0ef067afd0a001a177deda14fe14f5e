@@ -1,0 +1,15 @@
+/*
+ * Thermcouples.c
+ *
+ *  Created on: 21 жовт. 2019 р.
+ *      Author: vitlaiy2034
+ */
+#include <Thermcouples.h>
+
+
+
+float GetThrmcuopT(float voltage){
+	if(voltage<0)
+		for(short i;i<SIZE)
+
+}
